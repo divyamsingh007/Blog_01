@@ -26,7 +26,9 @@ function Home() {
         </div>
 
         <div className="relative z-10 flex items-center justify-center min-h-screen">
-          <div className="hero-section-head overflow-hidden md:rounded-3xl bg-[#2B1F39] px-6 sm:px-10 md:px-16 lg:px-24 xl:px-36 2xl:px-36 pt-6 md:pt-10 lg:pt-20 pb-8 md:pb-12 lg:pb-26"></div>
+          <div className="hero-section-head overflow-hidden md:rounded-3xl bg-[#2B1F39] px-6 sm:px-10 md:px-16 lg:px-24 xl:px-36 2xl:px-36 pt-6 md:pt-10 lg:pt-20 pb-8 md:pb-12 lg:pb-26">
+            
+          </div>
         </div>
       </section>
     </>
