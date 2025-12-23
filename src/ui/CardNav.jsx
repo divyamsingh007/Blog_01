@@ -170,18 +170,16 @@ const CardNav = ({
             />
           </div>
 
-          <h4
-              class="text-2xl font-extrabold bg-gradient-to-r from-[#E0F0EA] via-gray-300 to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shine"
-            >
-              BLG.
-            </h4>
+          <h4 class="text-2xl font-extrabold bg-gradient-to-r from-[#E0F0EA] via-gray-300 to-white bg-[length:200%_auto] bg-clip-text text-transparent animate-shine">
+            BLG.
+          </h4>
 
           <button
             type="button"
-            className="card-nav-cta-button hidden md:inline-flex border-0 rounded-[calc(0.75rem-0.2rem)] px-4 items-center h-full font-medium cursor-pointer transition-colors duration-300"
+            className="card-nav-cta-button hidden md:inline-flex border-0 rounded-[calc(0.75rem-0.2rem)] px-4 items-center h-full font-medium  cursor-pointer transition-colors duration-300"
             style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
           >
-            Login
+            <h6>Login</h6>
           </button>
         </div>
 
