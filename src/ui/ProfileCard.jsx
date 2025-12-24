@@ -300,10 +300,6 @@ const ProfileCardComponent = ({
     [iconUrl, grainUrl, innerGradient, behindGlowColor, behindGlowSize]
   );
 
-  const handleContactClick = useCallback(() => {
-    onContactClick?.();
-  }, [onContactClick]);
-
   return (
     <div ref={wrapRef} className={`pc-card-wrapper ${className}`.trim()} style={cardStyle}>
       {behindGlowEnabled && <div className="pc-behind" />}

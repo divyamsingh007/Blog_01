@@ -1,7 +1,9 @@
 import Background from "../components/Background";
 import Navbar from "../components/Navbar";
+
 import CurvedLoop from "../ui/CurvedLoop";
 import BlurText from "../ui/BlurText";
+import ShinyText from "../ui/ShinyText";
 import ProfileCard from "../ui/ProfileCard";
 
 function Home() {
@@ -31,7 +33,7 @@ function Home() {
           <Navbar />
         </div>
 
-        <div className="relative z-10 flex items-center justify-center pt-32 md:pt-32">
+        <div className="relative z-10 flex items-center justify-center pt-32 md:pt-32 max-w-7xl mx-auto">
           <div className="hero-section-head overflow-hidden md:rounded-3xl bg-[#2B1F39] px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20 2xl:px-24 pt-4 md:pt-6 lg:pt-10 pb-6 md:pb-8 lg:pb-12 flex items-center justify-center">
             <div className="flex flex-row gap-10">
               <div className="text-box">
@@ -89,6 +91,24 @@ function Home() {
                     textAlign: "left",
                   }}
                 />
+                <ShinyText
+                  text="I use this space to share what I’m learning, building, and thinking about—sometimes technical, sometimes personal. You’ll find notes from my journey, lessons from building things, and thoughts that didn’t fit neatly anywhere else."
+                  disabled={false}
+                  speed={3}
+                  className=""
+                  style={{
+                    fontFamily: "Roboto, sans-serif",
+                    fontOpticalSizing: "auto",
+                    fontWeight: 400,
+                    fontStyle: "normal",
+                    fontSize: "clamp(1.1rem, 1.3vw, 1.3125rem)",
+                    lineHeight: "1.625",
+                    textAlign: "left",
+                    color: "#DFEFE9",
+                    opacity: 1,
+                    marginTop: "clamp(14px, 1.2vw, 16px)",
+                  }}
+                />
               </div>
               <div className="img-box">
                 <ProfileCard
@@ -97,7 +117,7 @@ function Home() {
                   handle=""
                   status=""
                   contactText="Contact Me"
-                  avatarUrl="public/Divyam.jpeg"
+                  avatarUrl="/Divyam.jpeg"
                   showUserInfo={true}
                   enableTilt={true}
                   enableMobileTilt={false}
