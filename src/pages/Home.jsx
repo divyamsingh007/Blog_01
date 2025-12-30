@@ -9,6 +9,7 @@ import BlurText from "../ui/BlurText";
 import ShinyText from "../ui/ShinyText";
 import TextPressure from "../ui/TextPressure";
 import ProfileCard from "../ui/ProfileCard";
+import BlogGrid from "../components/BlogGrid";
 
 function Home() {
   const handleAnimationComplete = () => {
@@ -118,7 +119,7 @@ function Home() {
                   style={{
                     fontFamily: "Roboto, sans-serif",
                     fontOpticalSizing: "auto",
-                    fontWeight: 400,
+                    fontWeight: 150,
                     fontStyle: "normal",
                     fontSize: "clamp(1.1rem, 1.3vw, 1.3125rem)",
                     lineHeight: "1.625",
@@ -185,24 +186,27 @@ function Home() {
         </h1>
         <hr style={{ marginTop: 0 }} />
         <BlurText
-                  text="Things I’m Figuring Out"
-                  delay={150}
-                  animateBy="words"
-                  direction="top"
-                  onAnimationComplete={handleAnimationComplete}
-                  className=""
-                  style={{
-                    color: "#2B1F39",
-                    fontFamily: "Montserrat, sans-serif",
-                    fontOpticalSizing: "auto",
-                    fontWeight: "bold",
-                    fontStyle: "normal",
-                    fontSize: "clamp(2.25rem, 5vw + 1rem, 5.6rem)",
-                    lineHeight: "144px",
-                    textAlign: "left",
-                    opacity: 1,
-                  }}
-                />
+          text="Things I’m Figuring Out"
+          delay={150}
+          animateBy="words"
+          direction="top"
+          onAnimationComplete={handleAnimationComplete}
+          className=""
+          style={{
+            color: "#2B1F39",
+            fontFamily: "Montserrat, sans-serif",
+            fontOpticalSizing: "auto",
+            fontWeight: "bold",
+            fontStyle: "normal",
+            fontSize: "clamp(2.25rem, 5vw + 1rem, 5.6rem)",
+            lineHeight: "144px",
+            textAlign: "left",
+            opacity: 1,
+          }}
+        />
+        <div className="blog-container absolute left-0 w-full">
+          <BlogGrid />
+        </div>
       </section>
     </>
   );
