@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import BlogPost from "./pages/BlogPost";
 import Login from "./pages/Login";
 import AdminPanel from "./pages/AdminPanel";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 import ClickSpark from "./ui/ClickSpark";
 
@@ -21,7 +22,14 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/admin" element={<AdminPanel />} />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <AdminPanel />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </Router>
     </ClickSpark>

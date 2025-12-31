@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { Link } from "react-router-dom";
 // use your own icon import if react-icons is not available
 import { GoArrowUpRight } from "react-icons/go";
 
@@ -175,14 +176,13 @@ const CardNav = ({
           <h4 className="text-2xl font-extrabold bg-linear-to-r from-[#E0F0EA] via-gray-300 to-white bg-size-[200%_auto] bg-clip-text text-transparent animate-shine">
             BLG.
           </h4>
-
-          <button
-            type="button"
+          <Link
+            to="/admin"
             className="card-nav-cta-button hidden md:inline-flex border-0 rounded-[calc(0.75rem-0.2rem)] px-4 items-center h-full font-medium  cursor-pointer transition-colors duration-300"
             style={{ backgroundColor: buttonBgColor, color: buttonTextColor }}
           >
             <h6>Admin</h6>
-          </button>
+          </Link>
         </div>
 
         <div
