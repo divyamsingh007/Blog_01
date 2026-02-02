@@ -36,7 +36,7 @@ export default function BlogGrid() {
       <div className="relative -mt-8 flex justify-center">
         <div
           className="absolute -top-16 left-1/2 -translate-x-1/2 w-64 h-24 
-                     bg-gradient-to-b from-transparent via-[#2B1F39]/50 to-[#2B1F39]
+                     bg-linear-to-b from-transparent via-[#2B1F39]/50 to-[#2B1F39]
                      pointer-events-none"
         />
         <Link

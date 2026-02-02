@@ -13,6 +13,7 @@ import ProfileCard from "../ui/ProfileCard";
 import ScrollVelocity from "../ui/ScrollVelocity";
 import BlogGrid from "../components/BlogGrid";
 import Footer from "../components/Footer";
+import StoryGrid from "../components/StoryGrid";
 
 function Home() {
   const handleAnimationComplete = () => {
@@ -172,7 +173,10 @@ function Home() {
           </div>
         </div>
       </section>
-      <section id="blogs" className="blog-section px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20 2xl:px-24 pt-4 md:pt-6 lg:pt-10 pb-6 md:pb-8 lg:pb-12">
+      <section
+        id="blogs"
+        className="blog-section px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20 2xl:px-24 pt-4 md:pt-6 lg:pt-10 pb-6 md:pb-8 lg:pb-12"
+      >
         <h1 style={{ margin: 0 }}>
           <div
             style={{
@@ -219,6 +223,7 @@ function Home() {
         <div className="blog-container relative w-full">
           <BlogGrid />
         </div>
+        <hr />
       </section>
       {/* <section className="quote-section h-100">
         <div>
@@ -229,6 +234,34 @@ function Home() {
           />
         </div>
       </section> */}
+      <section
+        id="story"
+        className="story-section px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20 2xl:px-24 pt-4 md:pt-6 lg:pt-10 pb-6 md:pb-8 lg:pb-12"
+      >
+        <BlurText
+          text="Travel-ish Thoughts"
+          delay={150}
+          animateBy="words"
+          direction="top"
+          onAnimationComplete={handleAnimationComplete}
+          className=""
+          style={{
+            color: "#2B1F39",
+            fontFamily: "Montserrat, sans-serif",
+            fontOpticalSizing: "auto",
+            fontWeight: "bold",
+            fontStyle: "normal",
+            fontSize: "clamp(2.25rem, 5vw + 1rem, 5.6rem)",
+            lineHeight: "144px",
+            textAlign: "left",
+            opacity: 1,
+          }}
+        />
+        <div className="blog-container relative w-full">
+          <StoryGrid />
+        </div>
+        <hr />
+      </section>
       <Footer />
     </>
   );
