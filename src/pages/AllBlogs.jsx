@@ -406,7 +406,7 @@ export default function AllBlogs() {
                     key={f.key}
                     onClick={() => setActiveFilter(f.key)}
                     className={`relative text-left cursor-pointer rounded-2xl p-5 md:p-6 transition-all duration-500 overflow-hidden group ${
-                      isActive ? "" : "hover:bg-[#E0F0EA]/[0.06]"
+                      isActive ? "" : "hover:bg-[#E0F0EA]/6"
                     }`}
                     style={{
                       background: isActive
@@ -418,7 +418,7 @@ export default function AllBlogs() {
                   >
                     {/* Left accent bar */}
                     <span
-                      className="absolute left-0 top-1/2 -translate-y-1/2 w-[3px] rounded-full transition-all duration-500 group-hover:h-[35%]"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-0.75 rounded-full transition-all duration-500 group-hover:h-[35%]"
                       style={{
                         height: isActive ? "60%" : "0%",
                         background: isActive
