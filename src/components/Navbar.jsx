@@ -36,7 +36,6 @@ const Navbar = (props) => {
 
   return (
     <CardNav
-      {...props}
       logo={logo}
       logoAlt="Company Logo"
       items={items}
@@ -45,6 +44,7 @@ const Navbar = (props) => {
       buttonBgColor="#E0F0EA"
       buttonTextColor="#2B1F39"
       ease="power3.out"
+      {...props}
     />
   );
 };

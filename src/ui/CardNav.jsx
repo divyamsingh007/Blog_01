@@ -14,6 +14,7 @@ const CardNav = ({
   menuColor,
   buttonBgColor,
   buttonTextColor,
+  logoTextColor,
   ...props
 }) => {
   const [isHamburgerOpen, setIsHamburgerOpen] = useState(false);
@@ -173,7 +174,14 @@ const CardNav = ({
             />
           </div>
 
-          <h4 className="text-2xl font-extrabold bg-linear-to-r from-[#E0F0EA] via-gray-300 to-white bg-size-[200%_auto] bg-clip-text text-transparent animate-shine">
+          <h4
+            className={`text-2xl font-extrabold ${
+              logoTextColor
+                ? ""
+                : "bg-linear-to-r from-[#E0F0EA] via-gray-300 to-white bg-size-[200%_auto] bg-clip-text text-transparent animate-shine"
+            }`}
+            style={logoTextColor ? { color: logoTextColor } : undefined}
+          >
             BLG.
           </h4>
           <Link

@@ -165,30 +165,105 @@ export default function Footer() {
 
           {/* ─── Socials ─── */}
           <div className="mb-16 md:mb-24">
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-4">
+            <div className="flex flex-wrap items-center gap-3">
               {socials.map((s) => (
                 <a
                   key={s.label}
                   href={s.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group flex items-center gap-2.5 transition-opacity duration-300 opacity-40 hover:opacity-100"
+                  className="social-tab group"
                 >
-                  <i className={`${s.icon} text-base text-[#E0F0EA]`} />
-                  <span
-                    style={{
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "0.8rem",
-                      fontWeight: 500,
-                      color: "#E0F0EA",
-                      letterSpacing: "0.02em",
-                    }}
-                  >
-                    {s.label}
+                  <span className="social-tab__icon">
+                    <i className={s.icon} />
                   </span>
+                  <span className="social-tab__label">{s.label}</span>
                 </a>
               ))}
             </div>
+
+            {/* Scoped styles for the social tabs */}
+            <style>{`
+              .social-tab {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                gap: 0;
+                padding: 0;
+                border-radius: 100px;
+                background: rgba(224, 240, 234, 0.06);
+                border: 1px solid rgba(224, 240, 234, 0.08);
+                text-decoration: none;
+                overflow: hidden;
+                transition: background 0.4s cubic-bezier(.4,0,.2,1),
+                            border-color 0.4s cubic-bezier(.4,0,.2,1),
+                            box-shadow 0.4s cubic-bezier(.4,0,.2,1),
+                            transform 0.35s cubic-bezier(.4,0,.2,1);
+                cursor: pointer;
+              }
+
+              .social-tab:hover {
+                background: rgba(224, 240, 234, 0.12);
+                border-color: rgba(224, 240, 234, 0.22);
+                box-shadow: 0 0 20px rgba(224, 240, 234, 0.08),
+                            0 4px 16px rgba(0, 0, 0, 0.15);
+                transform: translateY(-2px);
+              }
+
+              .social-tab__icon {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 38px;
+                height: 38px;
+                border-radius: 50%;
+                background: rgba(224, 240, 234, 0.1);
+                color: #E0F0EA;
+                font-size: 0.9rem;
+                flex-shrink: 0;
+                transition: background 0.4s cubic-bezier(.4,0,.2,1),
+                            color 0.4s cubic-bezier(.4,0,.2,1),
+                            transform 0.35s cubic-bezier(.4,0,.2,1);
+              }
+
+              .social-tab:hover .social-tab__icon {
+                background: #E0F0EA;
+                color: #2B1F39;
+                transform: scale(1.05);
+              }
+
+              .social-tab__label {
+                display: inline-block;
+                max-width: 0;
+                overflow: hidden;
+                white-space: nowrap;
+                opacity: 0;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.78rem;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                color: #E0F0EA;
+                padding-right: 0;
+                transition: max-width 0.45s cubic-bezier(.4,0,.2,1),
+                            opacity 0.35s cubic-bezier(.4,0,.2,1) 0.05s,
+                            padding 0.45s cubic-bezier(.4,0,.2,1);
+              }
+
+              .social-tab:hover .social-tab__label {
+                max-width: 120px;
+                opacity: 1;
+                padding-right: 16px;
+                padding-left: 8px;
+              }
+
+              @media (max-width: 480px) {
+                .social-tab__icon {
+                  width: 36px;
+                  height: 36px;
+                  font-size: 0.85rem;
+                }
+              }
+            `}</style>
           </div>
 
           {/* ─── Bottom strip ─── */}
@@ -211,18 +286,54 @@ export default function Footer() {
             </div>
 
             {/* Right — back to top */}
-            <a
-              href="#top"
-              className="group inline-flex items-center gap-1.5 transition-opacity duration-300 opacity-30 hover:opacity-70"
-              style={{
-                fontFamily: "Roboto, sans-serif",
-                fontSize: "0.75rem",
-                color: "#E0F0EA",
-              }}
-            >
-              Back to top
-              <i className="fa-solid fa-arrow-up text-[0.6rem] transition-transform duration-300 group-hover:-translate-y-1" />
+            <a href="#top" className="btt">
+              <span className="btt__line" />
+              <span className="btt__label">Top</span>
+              <i className="fa-solid fa-arrow-up btt__icon" />
             </a>
+
+            <style>{`
+              .btt {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                text-decoration: none;
+                cursor: pointer;
+                color: rgba(224, 240, 234, 0.35);
+                transition: color 0.3s ease;
+              }
+              .btt:hover {
+                color: #E0F0EA;
+              }
+
+              .btt__line {
+                display: block;
+                width: 24px;
+                height: 1px;
+                background: currentColor;
+                transition: width 0.4s cubic-bezier(.4,0,.2,1),
+                            background 0.3s ease;
+              }
+              .btt:hover .btt__line {
+                width: 40px;
+              }
+
+              .btt__label {
+                font-family: 'Montserrat', sans-serif;
+                font-size: 0.7rem;
+                font-weight: 600;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+              }
+
+              .btt__icon {
+                font-size: 0.55rem;
+                transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+              }
+              .btt:hover .btt__icon {
+                transform: translateY(-3px);
+              }
+            `}</style>
           </div>
         </div>
       </div>

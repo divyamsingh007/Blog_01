@@ -1,12 +1,10 @@
-import { useState, useEffect, useMemo } from "react";
+import { useRef, useEffect, useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import AOS from "aos";
 import { motion, AnimatePresence } from "motion/react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import ScrollVelocity from "../ui/ScrollVelocity";
-import TextPressure from "../ui/TextPressure";
-import BlurText from "../ui/BlurText";
 import {
   ArrowLeft,
   ArrowRight,
@@ -14,8 +12,6 @@ import {
   X,
   Clock,
   Calendar,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 
 /* ───────────────────── sample data ───────────────────── */
