@@ -29,6 +29,10 @@ const postSchema = new mongoose.Schema({
     type: String,
     default: 'https://images.unsplash.com/photo-1496979551903-46e46589a88b?auto=format&fit=crop&w=1600&q=80'
   },
+  relatedImages: {
+    type: [String],
+    default: []
+  },
   author: {
     type: String,
     default: 'Divyam Singh'

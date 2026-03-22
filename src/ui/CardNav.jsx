@@ -212,20 +212,25 @@ const CardNav = ({
                 {item.label}
               </div>
               <div className="nav-card-links mt-auto flex flex-col gap-0.5">
-                {item.links?.map((lnk, i) => (
-                  <a
-                    key={`${lnk.label}-${i}`}
-                    className="nav-card-link inline-flex items-center gap-1.5 no-underline cursor-pointer transition-opacity duration-300 hover:opacity-75 text-[15px] md:text-[16px]"
-                    href={lnk.href}
-                    aria-label={lnk.ariaLabel}
-                  >
-                    <GoArrowUpRight
-                      className="nav-card-link-icon shrink-0"
-                      aria-hidden="true"
-                    />
-                    {lnk.label}
-                  </a>
-                ))}
+                {item.links?.map((lnk, i) => {
+                  const isExternal = lnk.href?.startsWith("http") || lnk.href?.startsWith("mailto");
+                  const Component = isExternal ? "a" : Link;
+                  const linkProps = isExternal 
+                    ? { href: lnk.href, target: "_blank", rel: "noopener noreferrer" }
+                    : { to: lnk.href || "#" };
+
+                  return (
+                    <Component
+                      key={`${lnk.label}-${i}`}
+                      className="nav-card-link inline-flex items-center gap-1.5 no-underline cursor-pointer transition-opacity duration-300 hover:opacity-75 text-[15px] md:text-[16px]"
+                      aria-label={lnk.ariaLabel}
+                      {...linkProps}
+                    >
+                      <GoArrowUpRight className="nav-card-link-icon shrink-0" aria-hidden="true" />
+                      {lnk.label}
+                    </Component>
+                  );
+                })}
               </div>
             </div>
           ))}

@@ -8,6 +8,7 @@ export default function BlogCard({
   description,
   link = "#",
   category,
+  date,
   readTime,
   compact = false,
   ...props
@@ -46,7 +47,7 @@ export default function BlogCard({
       />
 
       {/* gradient overlay — deepens on hover */}
-      <div className="absolute inset-0 bg-linear-to-t from-[#2B1F39] via-[#2B1F39]/40 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500 pointer-events-none" />
+      <div className="absolute inset-0 bg-linear-to-t from-[#2B1F39] via-[#2B1F39]/50 to-transparent opacity-75 group-hover:opacity-95 transition-opacity duration-500 pointer-events-none" />
 
       {/* top-left category badge */}
       {category && (
@@ -59,22 +60,15 @@ export default function BlogCard({
           }}
         >
           <span
-            className="px-3.5 py-1.5 rounded-full bg-[#E0F0EA] text-[#2B1F39] backdrop-blur-md shadow-md shadow-[#2B1F39]/15"
-            style={{
-              fontFamily: "Montserrat, sans-serif",
-              fontSize: "0.6rem",
-              fontWeight: 800,
-              letterSpacing: "0.14em",
-              textTransform: "uppercase",
-            }}
+            className="px-3.5 py-1.5 rounded-full bg-[#E0F0EA] text-[#2B1F39] backdrop-blur-md shadow-md shadow-[#2B1F39]/15 font-['Montserrat']! text-[0.6rem]! font-extrabold! tracking-[0.14em]! uppercase!"
           >
             {category}
           </span>
         </div>
       )}
 
-      {/* top-right read time */}
-      {readTime && (
+      {/* top-right meta info */}
+      {(date || readTime) && (
         <div
           className="absolute top-5 right-5 z-10 transition-all duration-700 ease-out"
           style={{
@@ -84,23 +78,22 @@ export default function BlogCard({
           }}
         >
           <span
-            className="flex items-center gap-1.5 text-[#E0F0EA]/70"
-            style={{
-              fontFamily: "Montserrat, sans-serif",
-              fontSize: "0.68rem",
-              fontWeight: 500,
-              letterSpacing: "0.03em",
-            }}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#2B1F39]/60 backdrop-blur-md shadow-sm border border-white/10 text-[#E0F0EA] font-['Roboto']! text-[0.68rem]! font-medium! tracking-[0.02em]!"
           >
-            <Clock size={11} />
-            {readTime}
+            {date && <span>{date}</span>}
+            {date && readTime && <span className="opacity-50 mx-0.5">•</span>}
+            {readTime && (
+              <span className="flex items-center gap-1">
+                <Clock size={11} className="opacity-70" /> {readTime}
+              </span>
+            )}
           </span>
         </div>
       )}
 
       {/* content — slides up on first reveal, stays visible */}
       <div
-        className="relative z-10 transition-all duration-700 ease-out flex flex-col justify-end"
+        className="relative z-10 transition-all duration-700 ease-out flex flex-col justify-end mt-auto"
         style={{
           transform: revealed ? "translateY(0)" : "translateY(40px)",
           opacity: revealed ? 1 : 0,
@@ -109,32 +102,18 @@ export default function BlogCard({
       >
         {/* title */}
         <h6
-          className="text-[#E0F0EA] drop-shadow-sm"
-          style={{
-            fontFamily: "Montserrat, sans-serif",
-            fontSize: "1.25rem",
-            fontWeight: 800,
-            lineHeight: "1.3",
-            letterSpacing: "-0.02em",
-            textAlign: "left",
-            textWrap: "balance",
-          }}
+          className={`text-[#E0F0EA] drop-shadow-sm font-['Bricolage_Grotesque']! font-bold! tracking-tight! leading-[1.15]! text-left! text-balance! transition-colors duration-300 group-hover:text-white ${
+            compact ? "text-[1.35rem]!" : "text-[1.85rem]! sm:text-[2.25rem]!"
+          }`}
         >
           {title}
         </h6>
 
         {/* description */}
         <p
-          className="mt-3 text-[#E0F0EA]! opacity-100! line-clamp-2 transition-all duration-700 ease-out"
+          className="mt-3 text-[#E0F0EA]/70! font-['Roboto']! font-normal! leading-[1.6]! text-left! line-clamp-2 transition-all duration-700 ease-out group-hover:text-[#E0F0EA]/90!"
           style={{
-            fontFamily: "Roboto, sans-serif",
-            fontSize: "0.88rem",
-            fontWeight: 400,
-            lineHeight: "1.75",
-            textAlign: "left",
-            letterSpacing: "0.005em",
-            color: "#E0F0EA",
-            opacity: revealed ? 0.65 : 0,
+            fontSize: compact ? "0.9rem" : "1.05rem",
             transform: revealed ? "translateY(0)" : "translateY(16px)",
             transitionDelay: "350ms",
           }}

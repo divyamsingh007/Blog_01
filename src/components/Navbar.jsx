@@ -8,8 +8,8 @@ const Navbar = (props) => {
       bgColor: "#0D0716",
       textColor: "#fff",
       links: [
-        { label: "Professional Portfolio", ariaLabel: "About Portfolio" },
-        { label: "Me, Personally", ariaLabel: "About Me" },
+        { label: "Professional Portfolio", ariaLabel: "About Portfolio", href: "https://divyamsingh.me/" },
+        { label: "Me, Personally", ariaLabel: "About Me", href: "/about" },
       ],
     },
     {
@@ -17,9 +17,11 @@ const Navbar = (props) => {
       bgColor: "#170D27",
       textColor: "#fff",
       links: [
-        { label: "Essays", ariaLabel: "Essays" },
-        { label: "Short Read", ariaLabel: "Short Read" },
-        { label: "Thought Pieces", ariaLabel: "Thought Pieces" },
+        { label: "Essays", ariaLabel: "Essays", href: "/blogs?category=Essays" },
+        { label: "Short Read", ariaLabel: "Short Read", href: "/blogs?category=Short+Read" },
+        { label: "Thought Pieces", ariaLabel: "Thought Pieces", href: "/blogs?category=Thought+Pieces" },
+        { label: "Dev Log", ariaLabel: "Dev Log", href: "/blogs?category=Dev+Log" },
+        { label: "Travel", ariaLabel: "Travel", href: "/blogs?category=Travel" },
       ],
     },
     {
@@ -27,9 +29,9 @@ const Navbar = (props) => {
       bgColor: "#271E37",
       textColor: "#fff",
       links: [
-        { label: "Email", ariaLabel: "Email us" },
-        { label: "Twitter", ariaLabel: "Twitter" },
-        { label: "LinkedIn", ariaLabel: "LinkedIn" },
+        { label: "Email", ariaLabel: "Email us", href: "mailto:legendprice007@gmail.com" },
+        { label: "Twitter", ariaLabel: "Twitter", href: "https://x.com/DivSingh2006?t=OA4u2w-u7Xkt17R9KpYTkQ&s=09" },
+        { label: "LinkedIn", ariaLabel: "LinkedIn", href: "https://www.linkedin.com/in/divyam-singh-duhoon-0010211bb/" },
       ],
     },
   ];

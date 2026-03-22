@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState, useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import AOS from "aos";
 import { motion, AnimatePresence } from "motion/react";
 import Navbar from "../components/Navbar";
@@ -32,6 +32,15 @@ export default function AllBlogs() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const cat = params.get("category");
+    if (cat && CATEGORIES.includes(cat)) {
+      setActiveCategory(cat);
+    }
+  }, [location.search]);
 
   useEffect(() => {
     fetch('http://localhost:5000/api/posts')
@@ -41,7 +50,8 @@ export default function AllBlogs() {
           ...p,
           id: p._id,
           link: `/blog/${p._id}`,
-          date: new Date(p.createdAt || p.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+          date: new Date(p.createdAt || p.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }),
+          readTime: p.readTime || "5 min read",
         }));
         setAllPosts(mapped);
       })
@@ -136,61 +146,74 @@ export default function AllBlogs() {
       </div>
 
       {/* Sticky Filter Bar */}
-      <div className="sticky top-0 z-40 bg-[#DFEFE9]/90 backdrop-blur-xl border-y border-[#2B1F39]/10 py-5 shadow-sm transition-all duration-300">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex flex-col md:flex-row items-center justify-between gap-5">
-          <div className="flex flex-wrap items-center justify-center md:justify-start gap-2 sm:gap-3 w-full md:w-auto">
+      <div className="sticky top-0 z-40 bg-[#DFEFE9]/80 backdrop-blur-2xl border-b border-[#2B1F39]/5 py-4 shadow-[0_4px_30px_rgba(43,31,57,0.03)] transition-all duration-300">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-10 flex flex-col xl:flex-row items-center justify-between gap-6">
+          
+          {/* iOS-Style Layout Tab Indicator */}
+          <div className="flex flex-wrap relative items-center justify-center md:justify-start gap-1 p-1.5 bg-white/50 backdrop-blur-md rounded-[2rem] border border-[#2B1F39]/10 shadow-[inset_0_2px_4px_rgba(43,31,57,0.02)] w-full xl:w-auto">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`font-['Montserrat']! px-4 py-2 rounded-full text-xs! font-bold! tracking-widest! uppercase! transition-all duration-300
+                className={`relative font-['Montserrat']! px-5 py-2.5 rounded-full text-[0.65rem]! sm:text-[0.7rem]! font-bold! tracking-widest! uppercase! transition-colors duration-300 z-10 flex-1 sm:flex-none
                   ${
                     activeCategory === cat
-                      ? "bg-[#2B1F39] text-[#DFEFE9] shadow-md shadow-[#2B1F39]/20 scale-105"
-                      : "text-[#2B1F39]/60 border border-[#2B1F39]/15 hover:border-[#2B1F39]/40 hover:text-[#2B1F39]"
+                      ? "text-[#DFEFE9]"
+                      : "text-[#2B1F39]/50 hover:text-[#2B1F39]"
                   }`}
               >
-                {cat}
+                {activeCategory === cat && (
+                  <motion.div
+                    layoutId="active-category-pill"
+                    className="absolute inset-0 bg-[#2B1F39] rounded-full shadow-md z-[-1]"
+                    transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  />
+                )}
+                <span className="relative z-20 whitespace-nowrap">{cat}</span>
               </button>
             ))}
           </div>
 
-          <div className="relative w-full md:w-auto flex justify-center md:justify-end">
+          <div className="relative w-full xl:w-auto flex justify-center xl:justify-end min-h-[44px]">
             <AnimatePresence mode="wait">
               {searchOpen ? (
                 <motion.div 
-                  initial={{ opacity: 0, width: 0 }}
-                  animate={{ opacity: 1, width: "auto", minWidth: "240px" }}
-                  exit={{ opacity: 0, width: 0 }}
-                  className="flex items-center gap-2 bg-white/60 border border-[#2B1F39]/20 rounded-full px-4 py-2 shadow-inner lg:w-80"
+                  key="search-input"
+                  initial={{ opacity: 0, scale: 0.95, width: 40 }}
+                  animate={{ opacity: 1, scale: 1, width: "100%", maxWidth: "340px" }}
+                  exit={{ opacity: 0, scale: 0.95, width: 40 }}
+                  transition={{ type: "spring", stiffness: 450, damping: 30 }}
+                  className="flex items-center gap-3 bg-white/70 backdrop-blur-xl border border-[#2B1F39]/20 focus-within:border-[#2B1F39]/40 rounded-[2rem] px-5 py-2 hover:shadow-md focus-within:shadow-xl focus-within:shadow-[#2B1F39]/5 transition-all duration-300 w-full xl:w-80 h-[44px] origin-right"
                 >
-                  <Search size={16} className="text-[#2B1F39]/40 shrink-0" />
+                  <Search size={16} className="text-[#2B1F39]/50 shrink-0" />
                   <input
                     autoFocus
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search articles…"
-                    className="bg-transparent text-[#2B1F39] placeholder-[#2B1F39]/40 text-sm! outline-none w-full font-['Roboto']!"
+                    placeholder="Search articles..."
+                    className="bg-transparent text-[#2B1F39] placeholder-[#2B1F39]/40 text-[0.85rem]! outline-none w-full font-['Roboto']! font-medium!"
                   />
                   <button
                     onClick={() => {
                       setSearchOpen(false);
                       setSearchQuery("");
                     }}
-                    className="text-[#2B1F39]/40 hover:text-[#2B1F39] transition-colors shrink-0"
+                    className="text-[#2B1F39]/40 hover:text-[#2B1F39] hover:bg-[#2B1F39]/5 w-6 h-6 flex items-center justify-center rounded-full transition-colors shrink-0"
                   >
-                    <X size={16} />
+                    <X size={14} />
                   </button>
                 </motion.div>
               ) : (
                 <motion.button
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  key="search-btn"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.2 }}
                   onClick={() => setSearchOpen(true)}
-                  className="flex items-center gap-2 text-[#2B1F39]/60 hover:text-[#2B1F39] border border-[#2B1F39]/15 hover:border-[#2B1F39]/40 rounded-full px-5 py-2 transition-all font-['Montserrat']! text-xs! font-bold! tracking-widest! uppercase! w-full md:w-auto justify-center"
+                  className="flex items-center gap-2 text-[#2B1F39]/60 hover:text-[#2B1F39] bg-white/50 hover:bg-white backdrop-blur-md border border-[#2B1F39]/10 hover:border-[#2B1F39]/20 rounded-[2rem] px-6 h-[44px] shadow-[inset_0_2px_4px_rgba(43,31,57,0.02)] hover:shadow-md transition-all duration-300 font-['Montserrat']! text-[0.65rem]! sm:text-[0.7rem]! font-bold! tracking-widest! uppercase! w-full xl:w-auto justify-center"
                 >
-                  <Search size={14} />
+                  <Search size={14} className="mt-[-1px]" />
                   Search
                 </motion.button>
               )}
@@ -237,24 +260,21 @@ export default function AllBlogs() {
                         <span className="px-4 py-1.5 rounded-full bg-[#DFEFE9]/95 text-[#2B1F39] backdrop-blur-md text-xs! font-bold! font-['Montserrat']! uppercase! tracking-widest! shadow-sm">
                           {paginated[0].category}
                         </span>
-                        <span className="px-4 py-1.5 rounded-full bg-[#2B1F39]/95 text-[#DFEFE9] backdrop-blur-md text-xs! font-bold! font-['Montserrat']! uppercase! tracking-widest! shadow-sm flex items-center gap-1.5">
-                          ✨ Featured
-                        </span>
                       </div>
                     </div>
                     <div className="p-8 lg:p-12 lg:pr-16 flex flex-col justify-center">
-                      <div className="flex items-center gap-4 text-[#2B1F39]/50 font-['Roboto']! text-[0.85rem]! tracking-wider! uppercase! font-semibold! mb-5">
+                      <div className="flex items-center gap-4 text-[#2B1F39]/50 font-['Roboto']! text-[0.85rem]! tracking-wider! uppercase! font-semibold! mb-4">
                         <span className="flex items-center gap-1.5"><Calendar size={14}/> {paginated[0].date}</span>
-                        <span>•</span>
+                        <span className="opacity-50">•</span>
                         <span className="flex items-center gap-1.5"><Clock size={14}/> {paginated[0].readTime}</span>
                       </div>
-                      <h2 className="text-4xl! sm:text-5xl! lg:text-6xl! font-['Bricolage_Grotesque']! font-bold! text-[#2B1F39]! leading-[1.05]! tracking-tight! mb-6 group-hover:text-[#2B1F39]/70 transition-colors">
+                      <h2 className="text-4xl! sm:text-5xl! lg:text-6xl! font-['Bricolage_Grotesque']! font-bold! text-[#2B1F39]! leading-[1.05]! tracking-tight! mb-5 group-hover:text-[#2B1F39]/70 transition-colors text-balance!">
                         {paginated[0].title}
                       </h2>
-                      <p className="text-[#2B1F39]/70! font-['Roboto']! text-xl! leading-[1.7]! mb-8">
+                      <p className="text-[#2B1F39]/70! font-['Roboto']! text-xl! leading-[1.65]! mb-8">
                         {paginated[0].description}
                       </p>
-                      <div className="inline-flex items-center gap-2 font-['Montserrat']! font-bold! text-[#2B1F39]! uppercase! tracking-widest! text-sm! transition-transform duration-300 group-hover:translate-x-1">
+                      <div className="inline-flex items-center gap-2 font-['Montserrat']! font-bold! text-[#2B1F39]! uppercase! tracking-widest! text-[0.8rem]! transition-transform duration-300 group-hover:translate-x-1">
                         Read Article
                         <ArrowRight size={16} />
                       </div>
@@ -284,17 +304,17 @@ export default function AllBlogs() {
                     </div>
                     
                     <div className="flex flex-col flex-1 px-2 pb-2">
-                      <div className="flex items-center gap-3 text-[#2B1F39]/50 font-['Roboto']! text-[0.75rem]! tracking-wide! uppercase! font-semibold! mb-4">
+                      <div className="flex items-center gap-3 text-[#2B1F39]/50 font-['Roboto']! text-[0.75rem]! tracking-wide! uppercase! font-semibold! mb-3">
                         <span className="flex items-center gap-1"><Calendar size={12}/> {post.date}</span>
-                        <span>•</span>
-                        <span className="flex items-center gap-1"><Clock size={12}/> {post.readTime}</span>
+                        <span className="opacity-50">•</span>
+                        <span className="flex items-center gap-1"><Clock size={12}/> {post.readTime || 'N/A'}</span>
                       </div>
                       
-                      <h3 className="text-2xl! lg:text-[1.75rem]! font-['Bricolage_Grotesque']! font-bold! text-[#2B1F39]! leading-[1.15]! tracking-tight! mb-4 group-hover:text-[#2B1F39]/70 transition-colors">
+                      <h3 className="text-[1.35rem]! sm:text-2xl! lg:text-[1.85rem]! font-['Bricolage_Grotesque']! font-bold! text-[#2B1F39]! leading-[1.15]! tracking-tight! mb-3 group-hover:text-[#2B1F39]/75 transition-colors text-balance!">
                         {post.title}
                       </h3>
                       
-                      <p className="text-[#2B1F39]/60! font-['Roboto']! text-[1.05rem]! leading-[1.65]! mb-6 line-clamp-2 flex-1">
+                      <p className="text-[#2B1F39]/70! font-['Roboto']! text-[1rem]! leading-[1.65]! mb-6 line-clamp-3">
                         {post.description}
                       </p>
                       

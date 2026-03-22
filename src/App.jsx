@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Home from "./pages/Home";
 import BlogPost from "./pages/BlogPost";
 import AllBlogs from "./pages/AllBlogs";
+import About from "./pages/About";
 import Login from "./pages/Login";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import ClickSpark from "./ui/ClickSpark";
@@ -28,6 +29,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/blog/:id" element={<BlogPost />} />
           <Route path="/blogs" element={<AllBlogs />} />
+          <Route path="/about" element={<About />} />
           <Route path="/login" element={<Login />} />
           
           {/* Admin Protected Nested Layout */}

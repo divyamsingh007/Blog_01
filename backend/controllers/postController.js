@@ -42,7 +42,7 @@ const getPostById = async (req, res) => {
 // @access  Private
 const createPost = async (req, res) => {
   try {
-    const { title, description, content, category, readTime, image, author } = req.body;
+    const { title, description, content, category, readTime, image, author, relatedImages } = req.body;
     
     const post = new Post({
       title,
@@ -51,7 +51,8 @@ const createPost = async (req, res) => {
       category,
       readTime,
       image,
-      author
+      author,
+      relatedImages
     });
 
     const createdPost = await post.save();

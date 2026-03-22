@@ -19,21 +19,23 @@ export default function Footer() {
       {/* Top Footer Section */}
       <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between mb-16 gap-12 ">
         <div className="flex-1">
-          <BlurText
-            text="Let's build something"
-            delay={50}
-            animateBy="words"
-            direction="top"
+          <div className="font-['Bricolage_Grotesque']! font-bold! tracking-tight!">
+            <BlurText
+              text="Let's build something"
+              delay={50}
+              animateBy="words"
+              direction="top"
             className="!text-[#DFEFE9] font-['Bricolage_Grotesque']! font-bold! text-5xl md:text-7xl lg:text-[5rem]! leading-[0.9]! tracking-tight !opacity-100"
-          />
-          <BlurText
-            text="worth talking about."
-            delay={100}
-            animateBy="words"
-            direction="top"
+            />
+            <BlurText
+              text="worth talking about."
+              delay={100}
+              animateBy="words"
+              direction="top"
             className="!text-[#DFEFE9] font-['Bricolage_Grotesque']! font-bold! text-4xl md:text-6xl lg:text-[4rem]! leading-[0.9]! -mt-2 md:-mt-4 italic !opacity-100"
-          />
-          <p className="mt-6 text-left! !text-[#DFEFE9] font-['Roboto']! text-[1.1rem] max-w-3xl leading-relaxed !opacity-100">
+            />
+          </div>
+          <p className="mt-6 text-left! !text-[#DFEFE9] font-['Roboto']! text-[clamp(0.95rem,2.5vw,1.1rem)]! max-w-3xl leading-[1.7]! !opacity-100">
             Exploring the boundaries of code and design. Open to ambitious projects, collaborations, or a great conversation.
           </p>
         </div>
@@ -41,24 +43,21 @@ export default function Footer() {
         {/* Massive dynamic navigation links */}
         <div className="flex flex-col gap-4 items-start md:items-end mt-12 md:mt-4">
           <Link to="/" className="group">
-            <h6 className="font-['Bricolage_Grotesque']! font-bold text-3xl md:text-4xl italic text-[#DFEFE9]/60 group-hover:text-[#DFEFE9] transition-all duration-300 flex items-center gap-4">
-              <span className="hidden md:inline-block opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
+            <h6 className="font-['Bricolage_Grotesque']! font-bold text-[clamp(1.75rem,5vw,2.5rem)]! italic text-[#DFEFE9]/60 group-hover:text-[#DFEFE9] transition-all duration-300 flex items-center gap-4 hover:translate-x-2 md:hover:-translate-x-2">
               Back to Home
-              <span className="md:hidden inline-block opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300">→</span>
+              <span className="inline-block opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
             </h6>
           </Link>
           <Link to="/blogs" className="group">
-            <h6 className="font-['Bricolage_Grotesque']! font-bold text-3xl md:text-4xl italic text-[#DFEFE9]/60 group-hover:text-[#DFEFE9] transition-all duration-300 flex items-center gap-4">
-              <span className="hidden md:inline-block opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
+            <h6 className="font-['Bricolage_Grotesque']! font-bold text-[clamp(1.75rem,5vw,2.5rem)]! italic text-[#DFEFE9]/60 group-hover:text-[#DFEFE9] transition-all duration-300 flex items-center gap-4 hover:translate-x-2 md:hover:-translate-x-2">
               All Essays
-              <span className="md:hidden inline-block opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300">→</span>
+              <span className="inline-block opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
             </h6>
           </Link>
           <Link to="/admin" className="group">
-            <h6 className="font-['Bricolage_Grotesque']! font-bold text-3xl md:text-4xl italic text-[#DFEFE9]/60 group-hover:text-[#DFEFE9] transition-all duration-300 flex items-center gap-4">
-              <span className="hidden md:inline-block opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
+            <h6 className="font-['Bricolage_Grotesque']! font-bold text-[clamp(1.75rem,5vw,2.5rem)]! italic text-[#DFEFE9]/60 group-hover:text-[#DFEFE9] transition-all duration-300 flex items-center gap-4 hover:translate-x-2 md:hover:-translate-x-2">
               Admin / Login
-              <span className="md:hidden inline-block opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-2 transition-all duration-300">→</span>
+              <span className="inline-block opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">→</span>
             </h6>
           </Link>
         </div>

@@ -77,8 +77,8 @@ function Home() {
   }, []);
 
   return (
-    <>
-      <section className="hero-section relative min-h-screen">
+    <div className="relative overflow-x-hidden w-full">
+      <section className="hero-section relative min-h-screen w-full">
         <div className="absolute inset-0 z-0">
           <Background />
         </div>
@@ -104,9 +104,9 @@ function Home() {
         </motion.div>
 
         <div className="relative z-10 flex items-center justify-center pt-32 md:pt-32 max-w-7xl mx-auto">
-          <div className="hero-section-head overflow-hidden md:rounded-3xl bg-[#2B1F39] px-4 sm:px-6 md:px-10 lg:px-16 xl:px-20 2xl:px-24 pt-4 md:pt-6 lg:pt-10 pb-6 md:pb-8 lg:pb-12 flex items-center justify-center">
-            <div className="flex flex-row gap-10">
-              <div className="text-box">
+          <div className="hero-section-head overflow-hidden md:rounded-[2.5rem] bg-[#2B1F39] px-6 sm:px-8 md:px-10 lg:px-16 xl:px-20 pt-16 md:pt-20 pb-16 md:pb-20 flex items-center justify-center shadow-md border border-[#DFEFE9]/10">
+            <div className="flex flex-col lg:flex-row gap-16 lg:gap-20 items-center lg:items-center w-full">
+              <div className="text-box flex-1 flex flex-col items-center lg:items-start text-center lg:text-left w-full">
                 <motion.div
                   variants={fadeUp}
                   initial="hidden"
@@ -123,10 +123,11 @@ function Home() {
                     style={{
                       color: "#DFEFE9",
                       fontFamily: "Montserrat, sans-serif",
-                      fontSize: "50.52px",
+                      fontSize: "clamp(1.75rem, 4vw, 3rem)",
                       opacity: 1,
-                      lineHeight: "62px",
+                      lineHeight: "1.2",
                       fontWeight: 300,
+                      textAlign: "inherit",
                     }}
                   />
                 </motion.div>
@@ -149,9 +150,12 @@ function Home() {
                       fontOpticalSizing: "auto",
                       fontWeight: "bold",
                       fontStyle: "normal",
-                      fontSize: "clamp(2.25rem, 5vw + 1rem, 5.6rem)",
-                      lineHeight: "144px",
-                      textAlign: "left",
+                      fontSize: "clamp(2.75rem, 12vw, 7rem)",
+                      lineHeight: "1.05",
+                      textAlign: "inherit",
+                      whiteSpace: "nowrap",
+                      marginTop: "1.5rem",
+                      marginBottom: "1rem",
                       opacity: 1,
                     }}
                   />
@@ -176,9 +180,9 @@ function Home() {
                       fontOpticalSizing: "auto",
                       fontWeight: "bold",
                       fontStyle: "italic",
-                      fontSize: "clamp(1.125rem, 2.2vw + 0.4rem, 2.37rem)",
-                      lineHeight: "1.25",
-                      textAlign: "left",
+                      fontSize: "clamp(1.2rem, 3vw, 2.4rem)",
+                      lineHeight: "1.3",
+                      textAlign: "inherit",
                     }}
                   />
                 </motion.div>
@@ -198,36 +202,36 @@ function Home() {
                       fontOpticalSizing: "auto",
                       fontWeight: 150,
                       fontStyle: "normal",
-                      fontSize: "clamp(1.1rem, 1.3vw, 1.3125rem)",
-                      lineHeight: "1.625",
-                      textAlign: "left",
+                      fontSize: "clamp(1.05rem, 1.5vw, 1.25rem)",
+                      lineHeight: "1.7",
+                      textAlign: "inherit",
                       color: "#DFEFE9",
-                      opacity: 1,
-                      marginTop: "clamp(14px, 1.2vw, 16px)",
+                      opacity: 0.85,
+                      marginTop: "1.5rem",
                     }}
                   />
                 </motion.div>
                 <motion.div
-                  className="cta-container flex gap-6"
+                  className="cta-container flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 mt-10"
                   variants={fadeUp}
                   initial="hidden"
                   animate="visible"
                   custom={4}
                 >
-                  <Link to="https://divyamsingh.me/">
-                    <button className="line-btn">
+                  <Link to="https://divyamsingh.me/" className="w-full sm:w-auto">
+                    <button className="line-btn w-full sm:w-auto px-8 sm:px-10">
                       <h6 className="italic">Portfolio</h6>
                     </button>
                   </Link>
-                  <a href="#blogs">
-                    <button className="line-btn">
+                  <a href="#blogs" className="w-full sm:w-auto">
+                    <button className="line-btn w-full sm:w-auto px-8 sm:px-10">
                       <h6 className="italic">To The Blogs</h6>
                     </button>
                   </a>
                 </motion.div>
               </div>
               <motion.div
-                className="img-box rellax"
+                className="img-box rellax hidden lg:block w-full max-w-[340px] md:max-w-[420px] mx-auto lg:w-auto shrink-0"
                 data-rellax-speed="-3"
                 variants={scaleIn}
                 initial="hidden"
@@ -351,7 +355,7 @@ function Home() {
         <hr />
       </section> */}
       <Footer />
-    </>
+    </div>
   );
 }
 
