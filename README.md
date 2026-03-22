@@ -1,16 +1,36 @@
-# React + Vite
+# Blog Portfolio Monorepo 🖋️
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a modern blog portal featuring a React/Vite frontend and an Express/Node.js backend.
 
-Currently, two official plugins are available:
+## Project Structure
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **/frontend**: React application (Vite, Tailwind CSS, Framer Motion)
+- **/backend**: Express API (Node.js, Mongoose/MongoDB)
 
-## React Compiler
+## Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 1. Installation
+To install all dependencies for both the frontend and backend at once, run the following command in the **root** directory:
 
-## Expanding the ESLint configuration
+```bash
+npm run install:all
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### 2. Running in Development
+You can start both the frontend and backend development servers simultaneously with a single command from the **root** directory:
+
+```bash
+npm run dev
+```
+
+- **Frontend**: Typically runs at `http://localhost:5173`
+- **Backend (API)**: typically runs at `http://localhost:5000`
+
+### 3. Other Useful Commands (Root)
+- `npm run build:frontend`: Build the React app for production.
+- `npm run start`: Build the frontend and start the backend server.
+- `npm run dev:frontend`: Start only the frontend dev server.
+- `npm run dev:backend`: Start only the backend dev server.
+
+---
+Crafted with ❤️ by Antigravity.
