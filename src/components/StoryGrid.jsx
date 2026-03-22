@@ -6,7 +6,7 @@ import CircularGallery from "../ui/CircularGallery";
 export default function StoryGrid() {
   const navigate = useNavigate();
 
-  const travelStories = [
+  const defaultStories = [
     {
       image:
         "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=800&q=80",
@@ -31,31 +31,27 @@ export default function StoryGrid() {
       text: "Santorini",
       link: "/story/santorini",
     },
-    {
-      image:
-        "https://images.unsplash.com/photo-1552832230-c0197dd311b5?auto=format&fit=crop&w=800&q=80",
-      text: "Rome",
-      link: "/story/rome",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80",
-      text: "Maldives",
-      link: "/story/maldives",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80",
-      text: "Taj Mahal",
-      link: "/story/taj-mahal",
-    },
-    {
-      image:
-        "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=800&q=80",
-      text: "Paris",
-      link: "/story/paris",
-    },
   ];
+
+  const [travelStories, setTravelStories] = React.useState(defaultStories);
+
+  React.useEffect(() => {
+    fetch('http://localhost:5000/api/posts')
+      .then((res) => res.json())
+      .then((data) => {
+        const stories = data
+          .filter((p) => p.category && p.category.toLowerCase() === "travel")
+          .map((p) => ({
+            image: p.image || defaultStories[0].image,
+            text: p.title,
+            link: `/blog/${p._id}`
+          }));
+        if (stories.length > 0) {
+          setTravelStories(stories);
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   const handleItemClick = (link) => {
     if (link) {

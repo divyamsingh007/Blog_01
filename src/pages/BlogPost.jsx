@@ -5,45 +5,7 @@ import { ArrowLeft, Clock, Calendar, Twitter, Linkedin, Copy } from "lucide-reac
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-// Dummy data generator natively embedded for layout preview
-const CATEGORIES = ["Essays", "Short Read", "Thought Pieces", "Dev Log", "Travel"];
-const getMockPost = (id) => {
-  const numId = parseInt(id) || 1;
-  return {
-    id: numId,
-    title: "Building Resilient Systems with Modern Architecture",
-    description: "A deep-dive into the thinking, trade-offs, and late-night debugging sessions that shaped this piece of work. Read on to explore what I learned.",
-    content: `
-      <p>System architecture isn't just about drawing boxes and arrows on a whiteboard. It’s about building a living, breathing ecosystem that can withstand chaos, load, and the inevitable failure of its components.</p>
-      
-      <h2>The Reality of Modern Systems</h2>
-      <p>When you sit down to architect a new platform, the natural inclination is to look for the "perfect" solution. You read the latest blog posts from massive tech giants, you study their microservice matrices, and you think: <em>"This is it. This is how we scale."</em></p>
-      
-      <p>But building resilient systems goes far beyond just adopting the latest buzzwords. True resilience comes from assuming that everything that can fail, will fail.</p>
-      
-      <blockquote>
-        "Resilience is not about avoiding failure, but rather, how quickly you can recover from it."
-      </blockquote>
-      
-      <h3>Designing for Failure</h3>
-      <p>Your database instance will disappear. Network partitions will happen. Third-party APIs will go down right in the middle of a critical transaction. If your architecture assumes a perfect world, it's already broken.</p>
-      
-      <ul>
-        <li><strong>Redundancy:</strong> Single points of failure are your biggest enemy. Ensure critical paths have fallbacks.</li>
-        <li><strong>Graceful Degradation:</strong> If the recommendation engine goes down, the user should still be able to see the core product catalog. The app shouldn't just crash.</li>
-        <li><strong>Circuit Breakers:</strong> Stop making calls to a failing service. Give it time to recover instead of hammering it to death.</li>
-      </ul>
-      
-      <h2>Moving Forward</h2>
-      <p>Ultimately, a system's architecture is a reflection of the team's understanding of their domain and their constraints. There are no silver bullets—only trade-offs. The best we can do is make those trade-offs deliberately and ensure our systems are resilient enough to survive our mistakes.</p>
-    `,
-    category: CATEGORIES[numId % CATEGORIES.length],
-    date: new Date(2026, 0, Math.max(1, 25 - numId)).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
-    readTime: `${3 + (numId % 7)} min read`,
-    image: "https://images.unsplash.com/photo-1496979551903-46e46589a88b?auto=format&fit=crop&w=1600&q=80",
-    author: "Divyam Singh",
-  };
-};
+// Dummy removed
 
 export default function BlogPost() {
   const { id } = useParams();
@@ -51,9 +13,16 @@ export default function BlogPost() {
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
-    // Simulate fetching post data based on ID
-    setPost(getMockPost(id));
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    fetch(`http://localhost:5000/api/posts/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        setPost({
+          ...data,
+          date: new Date(data.createdAt || data.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      })
+      .catch(err => console.error(err));
   }, [id]);
 
   const handleCopyLink = () => {

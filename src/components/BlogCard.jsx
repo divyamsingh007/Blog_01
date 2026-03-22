@@ -35,14 +35,13 @@ export default function BlogCard({
     <div
       {...props}
       ref={cardRef}
-      className={`relative group overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer ${
-        props.className || ""
+      className={`relative group overflow-hidden rounded-[2.5rem] shadow-sm hover:shadow-2xl transition-all duration-500 cursor-pointer flex flex-col justify-end p-6 md:p-8 border border-[#2B1F39]/5 ${
+        props.className || "min-h-[350px]"
       }`}
     >
       {/* image */}
       <div
-        className={`${compact ? "h-80" : "h-135"} bg-cover bg-center transition-transform duration-700 ease-out
-                   group-hover:scale-110`}
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] group-hover:scale-110"
         style={{ backgroundImage: `url(${image})` }}
       />
 
@@ -101,7 +100,7 @@ export default function BlogCard({
 
       {/* content — slides up on first reveal, stays visible */}
       <div
-        className="absolute bottom-0 left-0 right-0 p-6 z-10 transition-all duration-700 ease-out"
+        className="relative z-10 transition-all duration-700 ease-out flex flex-col justify-end"
         style={{
           transform: revealed ? "translateY(0)" : "translateY(40px)",
           opacity: revealed ? 1 : 0,

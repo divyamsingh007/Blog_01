@@ -4,7 +4,9 @@ import { Navigate } from "react-router-dom";
 // Simple client-side auth check. Replace with real auth/context as needed.
 const isAuthenticated = () => {
   try {
-    return localStorage.getItem("isLoggedIn") === "true";
+    const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+    const token = localStorage.getItem("token");
+    return isLoggedIn && token !== null && token !== undefined && token !== "undefined";
   } catch (e) {
     return false;
   }

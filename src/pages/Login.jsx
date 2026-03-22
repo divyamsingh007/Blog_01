@@ -17,15 +17,23 @@ export default function Login() {
     setIsLoading(true);
 
     try {
-      // Mock auth delay
-      await new Promise((resolve) => setTimeout(resolve, 800));
+      const res = await fetch("http://localhost:5000/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: email, password })
+      });
+      const data = await res.json();
       
-      // Simple mock validation that logs in regardless (for demoing purposes)
+      if (!res.ok) {
+        throw new Error(data.message || "Invalid credentials.");
+      }
+      
       localStorage.setItem("isLoggedIn", "true");
+      localStorage.setItem("token", data.token);
       navigate("/admin");
 
     } catch (err) {
-      setError("Invalid credentials.");
+      setError(err.message);
     } finally {
       setIsLoading(false);
     }

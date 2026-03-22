@@ -24,62 +24,47 @@ const CATEGORIES = [
   "Travel",
 ];
 
-const ALL_POSTS = Array.from({ length: 24 }, (_, i) => {
-  const cats = CATEGORIES.slice(1);
-  return {
-    id: i + 1,
-    image: [
-      "https://images.unsplash.com/photo-1496979551903-46e46589a88b?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=1200&q=80",
-    ][i % 6],
-    title: [
-      "Building Resilient Systems with Modern Architecture",
-      "The Art of Writing Clean, Maintainable Code",
-      "Lessons from Shipping My First Open Source Project",
-      "Why I Switched to a Minimalist Dev Setup",
-      "Debugging in Production: War Stories & Wisdom",
-      "Exploring the Edges of Frontend Performance",
-    ][i % 6] + (i >= 6 ? ` — Part ${Math.floor(i / 6) + 1}` : ""),
-    description:
-      "A deep-dive into the thinking, trade-offs, and late-night debugging sessions that shaped this piece of work. Read on to explore what I learned.",
-    category: cats[i % cats.length],
-    date: new Date(2026, 0, 25 - i).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }),
-    readTime: `${3 + (i % 7)} min read`,
-    link: `/blog/${i + 1}`,
-  };
-});
+// removed static array data
 
 /* ───────────────────── component ───────────────────── */
 export default function AllBlogs() {
+  const [allPosts, setAllPosts] = useState([]);
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchOpen, setSearchOpen] = useState(false);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/posts')
+      .then(res => res.json())
+      .then(data => {
+        const mapped = data.map(p => ({
+          ...p,
+          id: p._id,
+          link: `/blog/${p._id}`,
+          date: new Date(p.createdAt || p.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })
+        }));
+        setAllPosts(mapped);
+      })
+      .catch(err => console.error(err));
+  }, []);
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 10; // 1 featured + 9 regular on first page, 10 regular thereafter
 
   /* filter + search */
   const filtered = useMemo(() => {
-    let list = ALL_POSTS;
+    let list = allPosts;
     if (activeCategory !== "All")
       list = list.filter((p) => p.category === activeCategory);
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
       list = list.filter(
         (p) =>
-          p.title.toLowerCase().includes(q) ||
-          p.description.toLowerCase().includes(q)
+          (p.title && p.title.toLowerCase().includes(q)) ||
+          (p.description && p.description.toLowerCase().includes(q))
       );
     }
     return list;
-  }, [activeCategory, searchQuery]);
+  }, [allPosts, activeCategory, searchQuery]);
 
   const totalPages = Math.ceil(filtered.length / ITEMS_PER_PAGE);
   const paginated = filtered.slice(

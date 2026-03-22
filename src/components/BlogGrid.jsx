@@ -1,105 +1,122 @@
 import { Link } from "react-router-dom";
 import BlogCard from "./BlogCard.jsx";
 import { ArrowRight } from "lucide-react";
+import { useEffect, useState } from "react";
 
 export default function BlogGrid() {
-  const cardsData = [
-    ...Array.from({ length: 5 }, (_, i) => ({
-      id: i + 1,
-      image: [
-        "https://images.unsplash.com/photo-1496979551903-46e46589a88b?auto=format&fit=crop&w=634&q=80",
-        "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=634&q=80",
-        "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=634&q=80",
-        "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=634&q=80",
-        "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=634&q=80",
-      ][i],
-      title: [
-        "Boxing icon has the will for a couple more fights",
-        "The Art of Writing Clean, Maintainable Code",
-        "Lessons from Shipping My First Open Source Project",
-        "Why I Switched to a Minimalist Dev Setup",
-        "Exploring the Edges of Frontend Performance",
-      ][i],
-      description:
-        "The highly anticipated world championship fight will take place at 10am and is the second major boxing blockbuster in the nation after 43 years.",
-      link: `/article/${i + 1}`,
-    })),
-  ];
+  const [cardsData, setCardsData] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:5000/api/posts')
+      .then(res => res.json())
+      .then(data => {
+        const mapped = data.map(p => ({
+          id: p._id,
+          image: p.image || "https://images.unsplash.com/photo-1496979551903-46e46589a88b?auto=format&fit=crop&w=634&q=80",
+          title: p.title,
+          description: p.description,
+          category: p.category,
+          link: `/blog/${p._id}`
+        }));
+        setCardsData(mapped);
+      })
+      .catch(err => console.error(err));
+  }, []);
 
   const displayedCards = cardsData.slice(0, 5);
 
   return (
-    <div className="py-16">
-      <div className="max-w-screen mx-auto px-4 sm:px-3 lg:px-4 flex flex-col gap-4">
-        {/* row 1 — 3 equal cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {displayedCards.slice(0, 3).map((card, i) => (
-            <BlogCard
-              key={card.id}
-              image={card.image}
-              title={card.title}
-              description={card.description}
-              link={card.link}
-              category={card.category}
-              compact
-              data-aos="fade-up"
-              data-aos-delay={i * 80}
-            />
-          ))}
-        </div>
-        {/* row 2 — asymmetric 5/7 split */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-          <div className="md:col-span-5">
-            <BlogCard
-              key={displayedCards[3].id}
-              image={displayedCards[3].image}
-              title={displayedCards[3].title}
-              description={displayedCards[3].description}
-              link={displayedCards[3].link}
-              category={displayedCards[3].category}
-              compact
-              data-aos="fade-right"
-              data-aos-delay="100"
-            />
+    <div className="py-8 md:py-16">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-6 auto-rows-auto md:auto-rows-[280px] lg:auto-rows-[340px]">
+          
+          {/* Card 1: Featured Massive Hero Card */}
+          {displayedCards[0] && (
+            <div className="md:col-span-8 md:row-span-2">
+              <BlogCard
+                key={displayedCards[0].id}
+                {...displayedCards[0]}
+                compact={false}
+                className="h-full w-full min-h-[400px] md:min-h-full"
+                data-aos="fade-up"
+                data-aos-delay="0"
+              />
+            </div>
+          )}
+
+          {/* Card 2 & 3: Stacked Sidebar */}
+          <div className="md:col-span-4 md:row-span-2 flex flex-col gap-4 lg:gap-6 hidden md:flex">
+            {displayedCards[1] && (
+              <div className="flex-1">
+                <BlogCard
+                  key={displayedCards[1].id}
+                  {...displayedCards[1]}
+                  compact={true}
+                  className="h-full w-full"
+                  data-aos="fade-left"
+                  data-aos-delay="100"
+                />
+              </div>
+            )}
+            {displayedCards[2] && (
+              <div className="flex-1">
+                <BlogCard
+                  key={displayedCards[2].id}
+                  {...displayedCards[2]}
+                  compact={true}
+                  className="h-full w-full"
+                  data-aos="fade-left"
+                  data-aos-delay="200"
+                />
+              </div>
+            )}
           </div>
-          <div className="md:col-span-7">
-            <BlogCard
-              key={displayedCards[4].id}
-              image={displayedCards[4].image}
-              title={displayedCards[4].title}
-              description={displayedCards[4].description}
-              link={displayedCards[4].link}
-              category={displayedCards[4].category}
-              compact
-              data-aos="fade-left"
-              data-aos-delay="180"
-            />
+          
+          {/* Mobile Fallback purely stacked */}
+          <div className="md:hidden flex flex-col gap-4">
+            {displayedCards[1] && <BlogCard key={displayedCards[1].id} {...displayedCards[1]} />}
+            {displayedCards[2] && <BlogCard key={displayedCards[2].id} {...displayedCards[2]} />}
           </div>
+
+          {/* Card 4 & 5: Bottom 50/50 Split */}
+          {displayedCards[3] && (
+            <div className="md:col-span-6 md:row-span-1">
+              <BlogCard
+                key={displayedCards[3].id}
+                {...displayedCards[3]}
+                compact={true}
+                className="h-full w-full min-h-[300px] md:min-h-full"
+                data-aos="fade-up"
+                data-aos-delay="100"
+              />
+            </div>
+          )}
+          {displayedCards[4] && (
+            <div className="md:col-span-6 md:row-span-1">
+              <BlogCard
+                key={displayedCards[4].id}
+                {...displayedCards[4]}
+                compact={true}
+                className="h-full w-full min-h-[300px] md:min-h-full"
+                data-aos="fade-up"
+                data-aos-delay="200"
+              />
+            </div>
+          )}
+
         </div>
       </div>
 
-      <div className="relative -mt-8 flex justify-center">
-        <div
-          className="absolute -top-16 left-1/2 -translate-x-1/2 w-64 h-24 
-                     bg-linear-to-b from-transparent via-[#2B1F39]/50 to-[#2B1F39]
-                     pointer-events-none"
-        />
-        <Link
-          to="/blogs"
-          className="group relative inline-flex items-center gap-4 bg-[#DFEFE9] text-[#2B1F39] 
-                     px-10 py-5 rounded-full font-semibold text-lg
-                     hover:bg-white hover:scale-105
-                     transition-all duration-300 
-                     shadow-[0_0_30px_rgba(223,239,233,0.4)]
-                     hover:shadow-[0_0_50px_rgba(223,239,233,0.6)]
-                     border border-[#2B1F39]/15 hover:border-[#2B1F39]/25
-                     z-10"
-        >
-          More From My Desk
-          <ArrowRight
-            size={22}
-            className="transition-transform duration-300 group-hover:translate-x-1.5"
-          />
+      <div className="flex justify-center mt-12 mb-8">
+        <Link to="/blogs" className="relative group">
+          {/* Brutalist 3D Drop Shadow */}
+          <div className="absolute inset-0 bg-[#2B1F39] rounded-full translate-y-1.5 translate-x-1.5 group-hover:translate-y-2.5 group-hover:translate-x-2.5 transition-all duration-300" />
+          
+          {/* Button Face */}
+          <div className="relative inline-flex items-center gap-4 bg-white border-2 border-[#2B1F39] text-[#2B1F39] px-10 py-5 rounded-full font-['Montserrat'] font-bold text-[0.8rem] tracking-[0.15em] uppercase group-hover:-translate-y-1 group-hover:-translate-x-1 transition-transform duration-300 group-hover:bg-[#DFEFE9]">
+            More From My Desk
+            <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-2" />
+          </div>
         </Link>
       </div>
     </div>
