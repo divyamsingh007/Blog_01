@@ -23,7 +23,7 @@ export default function Settings() {
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/users/profile", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/profile`, {
         headers: { "Authorization": `Bearer ${token}` }
       });
       if (res.ok) {
@@ -39,7 +39,7 @@ export default function Settings() {
     setStatusMsg({ type: "loading", text: "Saving changes..." });
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/users/profile", {
+      const res = await fetch("http://loca  lhost:5000/api/users/profile", {
         method: "PUT",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify(profile)
@@ -62,7 +62,7 @@ export default function Settings() {
     setStatusMsg({ type: "loading", text: "Updating password..." });
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://localhost:5000/api/users/password", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/users/password`, {
         method: "PUT",
         headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` },
         body: JSON.stringify({ currentPassword: passwords.currentPassword, newPassword: passwords.newPassword })

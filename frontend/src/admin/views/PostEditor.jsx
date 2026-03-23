@@ -30,7 +30,7 @@ export default function PostEditor() {
 
   useEffect(() => {
     if (postId) {
-      fetch(`http://localhost:5000/api/posts/${postId}`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/posts/${postId}`)
         .then(res => res.json())
         .then(data => {
           setTitle(data.title);
@@ -106,7 +106,7 @@ export default function PostEditor() {
   const publishPost = async () => {
     try {
       const token = localStorage.getItem("token");
-      const url = postId ? `http://localhost:5000/api/posts/${postId}` : "http://localhost:5000/api/posts";
+      const url = postId ? `${import.meta.env.VITE_API_URL}/api/posts/${postId}` : `${import.meta.env.VITE_API_URL}/api/posts`;
       const method = postId ? "PUT" : "POST";
 
       const res = await fetch(url, {

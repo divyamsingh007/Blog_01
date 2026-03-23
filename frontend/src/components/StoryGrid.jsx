@@ -36,7 +36,7 @@ export default function StoryGrid() {
   const [travelStories, setTravelStories] = React.useState(defaultStories);
 
   React.useEffect(() => {
-    fetch('http://localhost:5000/api/posts')
+    fetch(`${import.meta.env.VITE_API_URL}/api/posts`)
       .then((res) => res.json())
       .then((data) => {
         const stories = data

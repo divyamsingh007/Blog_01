@@ -13,7 +13,7 @@ export default function BlogPost() {
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/posts/${id}`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/posts/${id}`)
       .then(res => res.json())
       .then(data => {
         setPost({

@@ -13,7 +13,7 @@ export default function PostsList() {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/posts')
+    fetch(`${import.meta.env.VITE_API_URL}/api/posts`)
       .then(res => res.json())
       .then(data => {
         const mapped = data.map(p => ({
@@ -33,7 +33,7 @@ export default function PostsList() {
     if (window.confirm("Are you sure you want to delete this post?")) {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`http://localhost:5000/api/posts/${id}`, {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/posts/${id}`, {
           method: "DELETE",
           headers: {
             "Authorization": `Bearer ${token}`
