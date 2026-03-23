@@ -68,7 +68,7 @@ export default function BlogPost() {
       </div>
 
       {/* Absolute Top-Left Back Button */}
-      <div className="absolute top-6 md:top-10 left-4 sm:left-6 md:left-10 z-[60]">
+      <div className="absolute top-[112px] md:top-[112px] left-4 sm:left-6 md:left-10 z-[100]">
         <Link
           to="/blogs"
           className="group inline-flex items-center gap-3 pr-5 pl-1.5 py-1.5 rounded-full border border-[#2B1F39]/10 bg-white/40 backdrop-blur-xl shadow-sm text-[#2B1F39]/70 hover:text-[#2B1F39] hover:border-[#2B1F39]/25 hover:bg-white/80 hover:shadow-md transition-all duration-300 font-['Montserrat']! text-[0.65rem]! uppercase! tracking-widest! font-bold!"

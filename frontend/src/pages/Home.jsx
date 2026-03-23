@@ -58,7 +58,7 @@ const sectionReveal = {
 
 function Home() {
   const handleAnimationComplete = () => {
-    console.log("Animation completed!");
+    // Animation completed
   };
 
   useEffect(() => {
@@ -83,7 +83,13 @@ function Home() {
           <Background />
         </div>
 
-        <div className="absolute top-16 -left-20 z-5 w-full origin-left -rotate-12 md:top-20 md:-left-60 md:-rotate-20">
+        <motion.div 
+          className="absolute top-16 -left-20 z-5 w-full origin-left -rotate-12 md:top-20 md:-left-60 md:-rotate-20"
+          initial={{ opacity: 0, x: -100 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <CurvedLoop
             marqueeText="This ✦ is ✦ where ✦ I ✦ build, ✦ learn, ✦ fail, ✦ and ✦ repeat — publicly. ✦"
             speed={2}
@@ -92,7 +98,7 @@ function Home() {
             interactive={true}
             className="underline text-[#2B1F39]"
           />
-        </div>
+        </motion.div>
 
         <motion.div
           className="relative z-20"
@@ -123,7 +129,7 @@ function Home() {
                     style={{
                       color: "#DFEFE9",
                       fontFamily: "Montserrat, sans-serif",
-                      fontSize: "clamp(1.75rem, 4vw, 3rem)",
+                      fontSize: "clamp(1.4rem, 6vw, 2.5rem)",
                       opacity: 1,
                       lineHeight: "1.2",
                       fontWeight: 300,
@@ -150,12 +156,12 @@ function Home() {
                       fontOpticalSizing: "auto",
                       fontWeight: "bold",
                       fontStyle: "normal",
-                      fontSize: "clamp(2.75rem, 12vw, 7rem)",
+                      fontSize: "clamp(2.5rem, 12vw, 6rem)",
                       lineHeight: "1.05",
                       textAlign: "inherit",
                       whiteSpace: "nowrap",
-                      marginTop: "1.5rem",
-                      marginBottom: "1rem",
+                      marginTop: "1rem",
+                      marginBottom: "0.5rem",
                       opacity: 1,
                     }}
                   />
@@ -180,7 +186,7 @@ function Home() {
                       fontOpticalSizing: "auto",
                       fontWeight: "bold",
                       fontStyle: "italic",
-                      fontSize: "clamp(1.2rem, 3vw, 2.4rem)",
+                      fontSize: "clamp(1.1rem, 4vw, 2rem)",
                       lineHeight: "1.3",
                       textAlign: "inherit",
                     }}
@@ -202,12 +208,13 @@ function Home() {
                       fontOpticalSizing: "auto",
                       fontWeight: 150,
                       fontStyle: "normal",
-                      fontSize: "clamp(1.05rem, 1.5vw, 1.25rem)",
+                      fontSize: "clamp(1rem, 1.8vw, 1.15rem)",
                       lineHeight: "1.7",
                       textAlign: "inherit",
                       color: "#DFEFE9",
                       opacity: 0.85,
                       marginTop: "1.5rem",
+                      maxWidth: "100%",
                     }}
                   />
                 </motion.div>
@@ -219,13 +226,13 @@ function Home() {
                   custom={4}
                 >
                   <Link to="https://divyamsingh.me/" className="w-full sm:w-auto">
-                    <button className="line-btn w-full sm:w-auto px-8 sm:px-10">
-                      <h6 className="italic">Portfolio</h6>
+                    <button className="line-btn w-full sm:w-auto px-6 sm:px-10 py-3 sm:py-4">
+                      <h6 className="italic text-sm sm:text-base">Portfolio</h6>
                     </button>
                   </Link>
                   <a href="#blogs" className="w-full sm:w-auto">
-                    <button className="line-btn w-full sm:w-auto px-8 sm:px-10">
-                      <h6 className="italic">To The Blogs</h6>
+                    <button className="line-btn w-full sm:w-auto px-6 sm:px-10 py-3 sm:py-4">
+                      <h6 className="italic text-sm sm:text-base">To The Blogs</h6>
                     </button>
                   </a>
                 </motion.div>
@@ -247,7 +254,7 @@ function Home() {
                   showUserInfo={true}
                   enableTilt={true}
                   enableMobileTilt={false}
-                  onContactClick={() => console.log("Contact clicked")}
+                  onContactClick={() => {}}
                 />
               </motion.div>
             </div>
@@ -281,7 +288,7 @@ function Home() {
               italic={true}
               textColor="#2B1F39"
               strokeColor="#ff0000"
-              minFontSize={42}
+              minFontSize={32}
             />
           </div>
         </h1>
@@ -305,7 +312,7 @@ function Home() {
             fontOpticalSizing: "auto",
             fontWeight: 700,
             fontStyle: "italic",
-            fontSize: "clamp(2.5rem, 5vw + 0.8rem, 5.2rem)",
+            fontSize: "clamp(2rem, 8vw, 4.5rem)",
             lineHeight: 1.05,
             letterSpacing: "-0.03em",
             textAlign: "left",
@@ -354,7 +361,14 @@ function Home() {
         </div>
         <hr />
       </section> */}
-      <Footer />
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.1 }}
+        variants={sectionReveal}
+      >
+        <Footer />
+      </motion.div>
     </div>
   );
 }
