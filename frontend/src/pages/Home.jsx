@@ -238,7 +238,7 @@ function Home() {
                 </motion.div>
               </div>
               <motion.div
-                className="img-box rellax hidden lg:block w-full max-w-[340px] md:max-w-[420px] mx-auto lg:w-auto shrink-0"
+                className="img-box rellax hidden lg:block w-full max-w-85 md:max-w-105 mx-auto lg:w-auto shrink-0"
                 data-rellax-speed="-3"
                 variants={scaleIn}
                 initial="hidden"
